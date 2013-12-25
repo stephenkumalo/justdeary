@@ -1,0 +1,8 @@
+{
+	"name":"Mysite",
+	"description":"Personal Website",
+	"dependencies": 
+	{
+	    "express": "latest"
+	}
+}

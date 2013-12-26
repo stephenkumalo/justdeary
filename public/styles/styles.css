@@ -7,7 +7,14 @@ a{
 	color: #ffffff;
 	font-size: 20px;
 }
-
+.form-signin{
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+form{
+	display: block;
+}
 #main{
 	display: block;	
 	z-index: 3;

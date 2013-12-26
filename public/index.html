@@ -8,36 +8,38 @@
 	var deary = "52817678.467ede5.752fc2b103ce40ff82aa1bbbdf7211f5";
 	</script><!-- end Mixpanel -->
 	<head>
+		<link rel="icon" type="image/jpg" href="images/justdeary.jpg">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="keywords" content="deary hudson houston texas San Francisco code2040 innovation entrepreneurship agent web mobile developer">
 
 		<script type="text/javascript" src="scripts/instafeed.min.js"></script>
 		<script type="text/javascript">
-	    var feed = new Instafeed({
-	        get: 'tagged',
-	        tagName: 'spikelee',
-	        limit: 7,
-	        clientId: '266d0540f546476ba0e0801456f696dd'
-	    });
-	    feed.run();
+	    	var feed = new Instafeed({
+		        get: 'tagged',
+		        tagName: 'code2040',
+		        limit: 8,
+		        clientId: '266d0540f546476ba0e0801456f696dd'
+		    });
+		    feed.run();
 
-	    var iLikeText = ["making things.", "building valuable products.", "coding.", "being great at what I do.", "having fun!", "traveling.", "experiencing new things.", "solving complex problems"];
-	    var iLikeColors = ["#1abc9c","#f1c40f","","#e74c3c","#3498db","#8e44ad","#e67e22"];
-	    function iLike(){
-	    	var ranTextILike = Math.floor((Math.random()*iLikeText.length));
-	    	console.log( ranTextILike );
-	    	console.log(iLikeText[ ranTextILike ]);
+		    var text = ["making things.", "building valuable products.", "coding.", "being great at what I do.", "having fun!", "traveling.", "experiencing new things.", "solving complex problems"];
+		    var colors = ["#1abc9c","#f1c40f","","#e74c3c","#3498db","#8e44ad","#e67e22"];
+		    function iLike(){
+		    	var randomText = Math.floor((Math.random()*iLikeText.length));
+		    	console.log( randomText );
+		    	console.log(iLikeText[ randomText ]);
 
-	    	var ranColorILike = Math.floor( (Math.random() * iLikeColors.length));
-	    	console.log( ranColorILike );
-	    	console.log( iLikeColors[ ranColorILike ] );
-	    	var html = iLikeText[ ranTextILike ];
-	    	console.log(html);
-	    	$("#custom-text").text( iLikeText[ ranTextILike ] );
-	    	$("#custom-text").css('color', iLikeColors[ ranColorILike ]);
-	    }
-	    window.onload = function(){
-	    	setInterval(iLike, 5000);
-	    }
+		    	var randomColor = Math.floor( (Math.random() * iLikeColors.length));
+		    	console.log( randomColor );
+		    	console.log( colors[ randomColor ] );
+		    	var html = text[ randomText ];
+		    	console.log(html);
+		    	$("#custom-text").text( iLikeText[ randomText ] );
+		    	$("#custom-text").css('color', iLikeColors[ randomColor ]);
+		    }
+		    window.onload = function(){
+		    	setInterval(iLike, 5000);
+		    }
 		</script>
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
@@ -58,7 +60,7 @@
 				<ul class="nav nav-stacked">
 					<li><a href="#blog">Blog</a></li>
 					<li><a href="#about-deary">A little about me</a></li>
-					<li><a href="#deary's-products">Projects I've worked on</a></li>
+					<li><a href="http://www.github.com/hudsond7" rel="external">Projects I've worked on</a></li>
 				</ul>
 			</div>
 		</div>
@@ -70,7 +72,6 @@
 				<h4>I like <b><font id="custom-text">making things.</font></b></h4>
 			</div>
 		</div>
-
-		<h4 id="footer" class="pull-right">justdeary.com was made in Texas with Mixpanel Analytics (mixpanel.com) & Instafeed.js (instafeedjs.com)</h4>
+		
 	</body>
 </html>

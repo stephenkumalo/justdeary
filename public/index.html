@@ -10,7 +10,7 @@
 	<head>
 		<link rel="icon" type="image/jpg" href="images/justdeary.jpg">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="keywords" content="deary hudson houston texas San Francisco code2040 innovation entrepreneurship agent web mobile developer">
+		<meta name="keywords" content="deary hudson houston texas San Francisco code2040 innovation entrepreneurship startups">
 
 		<script type="text/javascript" src="scripts/instafeed.min.js"></script>
 		<script type="text/javascript">
@@ -25,17 +25,17 @@
 		    var text = ["making things.", "building valuable products.", "coding.", "being great at what I do.", "having fun!", "traveling.", "experiencing new things.", "solving complex problems"];
 		    var colors = ["#1abc9c","#f1c40f","","#e74c3c","#3498db","#8e44ad","#e67e22"];
 		    function iLike(){
-		    	var randomText = Math.floor((Math.random()*iLikeText.length));
+		    	var randomText = Math.floor((Math.random()*text.length));
 		    	console.log( randomText );
-		    	console.log(iLikeText[ randomText ]);
+		    	console.log(text[ randomText ]);
 
-		    	var randomColor = Math.floor( (Math.random() * iLikeColors.length));
+		    	var randomColor = Math.floor( (Math.random() * colors.length));
 		    	console.log( randomColor );
 		    	console.log( colors[ randomColor ] );
 		    	var html = text[ randomText ];
 		    	console.log(html);
-		    	$("#custom-text").text( iLikeText[ randomText ] );
-		    	$("#custom-text").css('color', iLikeColors[ randomColor ]);
+		    	$("#custom-text").text( text[ randomText ] );
+		    	$("#custom-text").css('color', colors[ randomColor ]);
 		    }
 		    window.onload = function(){
 		    	setInterval(iLike, 5000);
@@ -69,9 +69,14 @@
 			<div class="main" align="center">
 				<h1> just deary. </h1>
 				<img src="images/justdeary.jpg" class="img-circle" width="150" height="150" z-index="-1">
-				<h4>I like <b><font id="custom-text">making things.</font></b></h4>
+				<h4> I like <b><font id="custom-text">making things. </font></b></h4>
+				<br />
+				<p>
+					<h4> I want to change your perspective through what I create.</h4>
+					<h4> Previously a <a href="http://code2040.org" style="color:black">CODE2040</a> Fellow, and currently a web developer at <a href="http://bouncingpixel.com" style="color:black">Bouncing Pixel </a></h4>
+				</p>
 			</div>
 		</div>
-		
+		<h4 class="pull-right"> justdeary.com was made in Houston, Texas with Mixpanel Analytics and instafeedjs</h4>
 	</body>
 </html>

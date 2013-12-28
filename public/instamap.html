@@ -24,13 +24,17 @@
 				if( tag != ""){
 					instagram_api_call += tag + "/media/recent?access_token=" + access_token;
 					console.log( instagram_api_call );
-					$.ajax({
+					var ajax = $.ajax({
 					  url: instagram_api_call,
 					  beforeSend: function( xhr ) {
 					    xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
 					  }
-					}).done(function(data){
-						console.log(data);
+					});
+					ajax.done(function(data){
+						console.log( data );
+					});
+					ajax.error(function(jqXHR, status, err){
+						alert("We could not find any posts with the tag you specified");
 					});
 				}
 			}

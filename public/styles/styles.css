@@ -1,11 +1,14 @@
-h1, h4{
+h1, h4, button{
 	font-family: 'Lato', sans-serif;
+}
+
+button{
 }
 
 a{
 	font-family: 'Lato', sans-serif;
 	color: #ffffff;
-	font-size: 20px;
+	font-size: 21px;
 }
 
 #main{
@@ -29,7 +32,6 @@ a{
 
 
 .header-content{
-
 }
 
 .navigation{

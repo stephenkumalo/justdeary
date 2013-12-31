@@ -1,11 +1,14 @@
-h1, h4{
+h1, h4, button{
 	font-family: 'Lato', sans-serif;
+}
+
+button{
 }
 
 a{
 	font-family: 'Lato', sans-serif;
 	color: #ffffff;
-	font-size: 20px;
+	font-size: 21px;
 }
 .form-signin{
 	max-width: 330px;
@@ -36,7 +39,6 @@ form{
 
 
 .header-content{
-
 }
 
 .navigation{
@@ -60,4 +62,8 @@ form{
 .footer{
 	position: relative;
 	bottom: 0;
+}
+
+.instamap, h1{
+	font-family: 'Yellowtail', cursive;
 }

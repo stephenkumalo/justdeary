@@ -22,7 +22,6 @@ app.get("/insta", function(req, res){
 
 		httpResponse.on('end', function(){
 			var responseObject = JSON.parse( jsonResponse );
-			console.log(responseObject);
 			res.send( responseObject );
 		});
 	});

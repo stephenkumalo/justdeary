@@ -1,6 +1,6 @@
 var express = require( 'express' );
 var https = require( 'https' );
-var port = process.env.PORT || 3700;
+var port = 3700;
 var app = express();
 app.use(express.logger());
 

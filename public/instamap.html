@@ -32,10 +32,9 @@
 				var tag = {
 					tag: $( "#text" ).val()
 				};
-
 				if( tag != ""){
 					var ajax = $.ajax({
-					  url: "http://localhost:8080/insta",
+					  url: "http://localhost:" + document.location.port + " /insta",
 					  data: tag,
 					  beforeSend: function( xhr ) {
 					    xhr.overrideMimeType( "text/plain;" );

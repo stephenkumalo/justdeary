@@ -26,12 +26,8 @@
 		    var colors = ["#1abc9c","#f1c40f","","#e74c3c","#3498db","#8e44ad","#e67e22"];
 		    function iLike(){
 		    	var randomText = Math.floor((Math.random()*text.length));
-		    	console.log( randomText );
-		    	console.log(text[ randomText ]);
 
 		    	var randomColor = Math.floor( (Math.random() * colors.length));
-		    	console.log( randomColor );
-		    	console.log( colors[ randomColor ] );
 		    	var html = text[ randomText ];
 		    	console.log(html);
 		    	$("#custom-text").text( text[ randomText ] );

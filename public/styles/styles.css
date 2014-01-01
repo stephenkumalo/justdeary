@@ -10,7 +10,14 @@ a{
 	color: #ffffff;
 	font-size: 21px;
 }
-
+.form-signin{
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+form{
+	display: block;
+}
 #main{
 	display: block;	
 	z-index: 3;
@@ -59,4 +66,9 @@ a{
 
 .instamap, h1{
 	font-family: 'Yellowtail', cursive;
+}
+
+#fork-deary{
+	z-index: 3;
+	position: absolute;
 }

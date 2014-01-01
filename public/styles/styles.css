@@ -67,3 +67,8 @@ form{
 .instamap, h1{
 	font-family: 'Yellowtail', cursive;
 }
+
+#fork-deary{
+	z-index: 3;
+	position: absolute;
+}

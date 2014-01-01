@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/public'));
 app.get("/insta", function(req, res){
 
 	var tag = req.query.tag;
-	var access_token = "52817678.467ede5.752fc2b103ce40ff82aa1bbbdf7211f5";
+	var access_token = "*";
 	var instagram_api_call = "https://api.instagram.com/v1/tags/" + tag +"/media/recent?access_token=" + access_token;
 
 	var jsonResponse = "";

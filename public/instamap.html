@@ -20,7 +20,7 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                     var markers = new Array( );
                     var infoWindow;
                     
-                    var rateLimit = 30;
+                    var rateLimit = 10;
                     var limitReached = false;
                     var intervalID;
 
@@ -36,10 +36,10 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
 
                         google.maps.event.addDomListener(window, 'load', initialize);
 
-                        function request(){
+                        function request(text){
 
                                 var tag = {
-                                        tag: "happynewyear"
+                                        tag: text;
                                 };
 
                                 if( ! limitReached ){
@@ -55,46 +55,46 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                                                 ajax.done(function(data){
                                                         var obj = JSON.parse(data);
                                                         console.log( obj );
-                                if( obj["meta"]["code"] == 200){
-                                        for (var i = 0; i < obj["data"].length; i++) {
-                                                if( obj["data"][i]["location"] != null){
-                                                        var position = new google.maps.LatLng(obj["data"][i]["location"]["latitude"], obj["data"][i]["location"]["longitude"]);
-                                                        
-                                                        var contentString = "<a href='" + obj["data"][i]["link"] + "'><img src=" + obj["data"][i]["images"]["thumbnail"]["url"] + "></a>";
-                                                        contentString += "<div>";
-                                                        for (var j = obj["data"][i]["tags"].length - 1; j >= 0; j--) {
-                                                                contentString += " #" + obj["data"][i]["tags"][j];
-                                                        };
+                                            if( obj["meta"]["code"] == 200){
+                                                    for (var i = 0; i < obj["data"].length; i++) {
+                                                            if( obj["data"][i]["location"] != null){
+                                                                    var position = new google.maps.LatLng(obj["data"][i]["location"]["latitude"], obj["data"][i]["location"]["longitude"]);
+                                                                    
+                                                                    var contentString = "<a href='" + obj["data"][i]["link"] + "'><img src=" + obj["data"][i]["images"]["thumbnail"]["url"] + "></a>";
+                                                                    contentString += "<div>";
+                                                                    for (var j = obj["data"][i]["tags"].length - 1; j >= 0; j--) {
+                                                                            contentString += " #" + obj["data"][i]["tags"][j];
+                                                                    };
 
-                                                        contentString += "</div>";
-                                                        console.log( contentString );
-                                                        
-                                                        infowindow = new google.maps.InfoWindow({
-                                                                                    maxWidth: 200
-                                                                                  });
+                                                                    contentString += "</div>";
+                                                                    console.log( contentString );
+                                                                    
+                                                                    infowindow = new google.maps.InfoWindow({
+                                                                                                maxWidth: 200
+                                                                                              });
 
-                                                        marker = new google.maps.Marker({
-                                                                                    map:map,
-                                                                                    draggable:false,
-                                                                                    title: obj["data"][i]["title"],
-                                                                                    animation: google.maps.Animation.DROP,
-                                                                                    position: position
-                                                                                });
+                                                                    marker = new google.maps.Marker({
+                                                                                                map:map,
+                                                                                                draggable:false,
+                                                                                                title: obj["data"][i]["title"],
+                                                                                                animation: google.maps.Animation.DROP,
+                                                                                                position: position
+                                                                                            });
 
-                                                                                markers.push( marker );
+                                                                                            markers.push( marker );
 
-                                                                                if( markers.length == rateLimit ){
-                                                                                        limitReached = true;
-                                                                                        clearInterval( intervalID );
-                                                                                }
+                                                                                            if( markers.length == rateLimit ){
+                                                                                                    limitReached = true;
+                                                                                                    clearInterval( intervalID );
+                                                                                            }
 
-                                                                                bindInfoWindow(marker, map, infowindow, contentString);
+                                                                                            bindInfoWindow(marker, map, infowindow, contentString);
 
-                                                        setTimeout( function(){marker.setMap( map ); }, 2000);
-                                                }
-                                        };
+                                                                    setTimeout( function(){marker.setMap( map ); }, 2000);
+                                                            }
+                                                    };
 
-                                }
+                                            }
                             });
 
                                                 ajax.error(function(jqXHR, status, err){
@@ -122,8 +122,17 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                         }
 
                         $( window ).load(function(){
-                            $( "#search-instagram" ).on("click", request);
-                            setInterval( request, 10000);
+
+                            $( "#search-instagram" ).on("click", 
+                                function(){
+                                    clearOverlays( );
+
+                                    var text = $("#text").val();
+
+                                    request( text );
+
+                                    setInterval( function(){ request( text );}, 10000);
+                            });
                     });
             </script>
                 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -141,14 +150,12 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
         </head>
         <body>
                 <div id="search-bar">
-                        <h1 id="instamap">Instamap #happynewyear</h1>
+                        <h1 id="instamap">Instamap</h1>
                         <div class="alert alert-info">
-                                Happy New Year! Share how you're celebrating your new year with fellow instagram(ers)
-                                by tagging your photo with the tag #happynewyear and you'll get a chance to appear on instamap!
-                                Celebrate the New Year right, and be safe!
+                                Search for posts all across instagram with just a keyword.
                         </div>
-                        <!-- <input type="text" class="form-control" placeholder="Search for a tag" id="text" width="200"> -->
-                        <!-- <button type="button" class="btn btn-primary" id="search-instagram" width="40">Search Instagram</button> -->
+                        <input type="text" class="form-control" placeholder="Search for a tag" id="text" width="200">
+                        <button type="button" class="btn btn-primary" id="search-instagram" width="40">Search Instagram</button>
                 </div>
 
                 <a href="https://github.com/hudsond7/justdeary"><img id="fork-deary" class="pull-right" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub"></a>

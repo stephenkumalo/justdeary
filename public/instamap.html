@@ -6,7 +6,7 @@
 typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
 b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
 mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
-                mixpanel.track("map-canvas");
+                // mixpanel.track("map-canvas");
                 </script><!-- end Mixpanel -->
 
                 <script src="http://code.jquery.com/jquery.js"></script>
@@ -22,6 +22,8 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                     
                     var rateLimit = 100;
                     var limitReached = false;
+                    var apiIDs = new Array();
+                    apiIDs.push( -1 );
                     var intervalID;
 
 
@@ -53,46 +55,74 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                                                 });
 
                                                 ajax.done(function(data){
-                                                        var obj = JSON.parse(data);
-                                                        console.log( obj );
-                                            if( obj["meta"]["code"] == 200){
-                                                    for (var i = 0; i < obj["data"].length; i++) {
-                                                            if( obj["data"][i]["location"] != null){
-                                                                    var position = new google.maps.LatLng(obj["data"][i]["location"]["latitude"], obj["data"][i]["location"]["longitude"]);
-                                                                    
-                                                                    var contentString = "<a href='" + obj["data"][i]["link"] + "'><img src=" + obj["data"][i]["images"]["thumbnail"]["url"] + "></a>";
-                                                                    contentString += "<div>";
-                                                                    for (var j = obj["data"][i]["tags"].length - 1; j >= 0; j--) {
-                                                                            contentString += " #" + obj["data"][i]["tags"][j];
-                                                                    };
+                                                    var obj = JSON.parse(data);
+                                                    console.log( obj );
+                                                    if( obj["meta"]["code"] == 200){
 
-                                                                    contentString += "</div>";
-                                                                    console.log( contentString );
-                                                                    
-                                                                    infowindow = new google.maps.InfoWindow({
-                                                                                                maxWidth: 200
-                                                                                              });
+                                                            for (var i = 0; i < obj["data"].length; i++) {
 
-                                                                    marker = new google.maps.Marker({
-                                                                                                map:map,
-                                                                                                draggable:false,
-                                                                                                title: obj["data"][i]["title"],
-                                                                                                animation: google.maps.Animation.DROP,
-                                                                                                position: position
-                                                                                            });
+                                                                if( obj["data"][i]["location"] != null){
+                                                                    console.log( obj["data"][i]["id"] );
 
-                                                                                            markers.push( marker );
+                                                                        var position = new google.maps.LatLng(obj["data"][i]["location"]["latitude"], obj["data"][i]["location"]["longitude"]);
+                                                                        
+                                                                        var contentString = "<a href='" + obj["data"][i]["link"] + "'><img src=" + obj["data"][i]["images"]["thumbnail"]["url"] + "></a>";
+                                                                        
+                                                                        contentString += "<div>";
+                                                                        
+                                                                        for (var j = obj["data"][i]["tags"].length - 1; j >= 0; j--) {
+                                                                                contentString += " #" + obj["data"][i]["tags"][j];
+                                                                        };
 
-                                                                                            if( markers.length == rateLimit ){
-                                                                                                    limitReached = true;
-                                                                                                    clearInterval( intervalID );
-                                                                                            }
+                                                                        contentString += "</div>";
+                                                                        
+                                                                        infowindow = new google.maps.InfoWindow({
+                                                                            maxWidth: 200
+                                                                        });
 
-                                                                                            bindInfoWindow(marker, map, infowindow, contentString);
+                                                                        // Marker image options
+                                                                        var image = {
+                                                                            url: obj["data"][i]["images"]["thumbnail"]["url"],
+                                                                            size: new google.maps.Size(30, 30),
+                                                                            origin: new google.maps.Point(0,0),
+                                                                            anchor: new google.maps.Point(0, 30)
+                                                                        };
 
-                                                                    setTimeout( function(){marker.setMap( map ); }, 2000);
-                                                            }
-                                                    };
+                                                                        // Map Marker options
+                                                                        marker = new google.maps.Marker({
+                                                                            map:map,
+                                                                            draggable:false,
+                                                                            title: obj["data"][i]["title"],
+                                                                            animation: google.maps.Animation.DROP,
+                                                                            position: position,
+                                                                            icon: image
+                                                                        });
+
+                                                                        // Check if post id is not already published
+                                                                        for (var apiIDIter = 0; apiIDIter < apiIDs.length; apiIDIter++) {
+                                                                            
+                                                                            if( apiIDs[apiIDIter] == obj["data"][i]["id"] ){
+                                                                                continue;
+                                                                            }
+
+                                                                            else{
+                                                                                console.log( "adding the post id" );
+                                                                                apiIDs.push( obj["data"][i]["id"] );
+                                                                                markers.push( marker );
+                                                                                break;
+                                                                            };
+                                                                        };
+
+                                                                        if( markers.length == rateLimit ){
+                                                                            limitReached = true;
+                                                                            clearInterval( intervalID );
+                                                                        }
+
+                                                                        bindInfoWindow(marker, map, infowindow, contentString);
+
+                                                                        setTimeout( function(){marker.setMap( map ); }, 2000);
+                                                                }
+                                                            };
 
                                             }
                             });

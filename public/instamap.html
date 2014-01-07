@@ -20,7 +20,7 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                     var markers = new Array( );
                     var infoWindow;
                     
-                    var rateLimit = 10;
+                    var rateLimit = 100;
                     var limitReached = false;
                     var intervalID;
 
@@ -39,7 +39,7 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                         function request(text){
 
                                 var tag = {
-                                        tag: text;
+                                        tag: text
                                 };
 
                                 if( ! limitReached ){
@@ -98,6 +98,7 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
                             });
 
                                                 ajax.error(function(jqXHR, status, err){
+                                                        clearInterval( intervalID );
                                                         alert("We could not find any posts with the tag you specified");
                                                 });
                                         }
@@ -131,9 +132,9 @@ mixpanel.init("5aab86f8167aa624245ce6722bfff8f8");
 
                                     request( text );
 
-                                    setInterval( function(){ request( text );}, 10000);
+                                    intervalID = setInterval( function(){ request( text );}, 10000);
                             });
-                    });
+                        });
             </script>
                 <script src="bootstrap/js/bootstrap.min.js"></script>
                 <style type="text/css">
